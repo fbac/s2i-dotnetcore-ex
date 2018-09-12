@@ -182,7 +182,7 @@ for TEST_PROJECT in $DOTNET_TEST_PROJECTS; do
 done
 
 # publish application
-echo "---> Restoring application dependencies..."
+echo "---> WADDAFACK Restoring application dependencies..."
 dotnet restore "$DOTNET_STARTUP_PROJECT" $RESTORE_OPTIONS $VERBOSITY_OPTION
 echo "---> Publishing application..."
 dotnet publish "$DOTNET_STARTUP_PROJECT" -f "$DOTNET_FRAMEWORK" -c "$DOTNET_CONFIGURATION" $VERBOSITY_OPTION \
@@ -198,7 +198,7 @@ fi
 cat << EOF >"$DOTNET_APP_PATH/$DOTNET_DEFAULT_CMD"
 #!/bin/bash
 
-exec dotnet ${APP_DLL_NAME} --disable-parallel \$@
+exec dotnet ${APP_DLL_NAME} \$@
 EOF
 chmod +x "$DOTNET_APP_PATH/$DOTNET_DEFAULT_CMD"
 
