@@ -186,7 +186,7 @@ for TEST_PROJECT in $DOTNET_TEST_PROJECTS; do
 done
 
 # publish application
-echo "debug RESTORE_OPTIONS: " $RESTORE_OPTIONS)
+echo "debug RESTORE_OPTIONS: " $RESTORE_OPTIONS
 echo "debug DISABLE-PARALLEL: " $DOTNET_RESTORE_DISABLE_PARALLEL
 echo "---> Restoring application dependencies..."
 dotnet restore "$DOTNET_STARTUP_PROJECT" $RESTORE_OPTIONS $VERBOSITY_OPTION
