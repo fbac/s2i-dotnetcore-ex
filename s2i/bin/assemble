@@ -175,7 +175,7 @@ done
 
 if [ -n "$DOTNET_RESTORE_DISABLE_PARALLEL" ]; then
   RESTORE_OPTIONS="$RESTORE_OPTIONS --disable-parallel"
-  echo "RESTORE_OPTIONS: $(echo $RESTORE_OPTIONS)"
+  
 fi
 
 # run tests
@@ -187,6 +187,8 @@ for TEST_PROJECT in $DOTNET_TEST_PROJECTS; do
 done
 
 # publish application
+echo "RESTORE_OPTIONS: $(echo $RESTORE_OPTIONS)"
+echo "disable-parallel: " $DOTNET_RESTORE_DISABLE_PARALLEL
 echo "---> Restoring application dependencies..."
 dotnet restore "$DOTNET_STARTUP_PROJECT" $RESTORE_OPTIONS $VERBOSITY_OPTION
 echo "---> Publishing application..."
