@@ -173,17 +173,21 @@ for SOURCE in $DOTNET_RESTORE_SOURCES; do
   RESTORE_OPTIONS="$RESTORE_OPTIONS --source $SOURCE"
 done
 
+if [ -n "$DOTNET_RESTORE_DISABLE_PARALLEL" ]; then
+  RESTORE_OPTIONS="$RESTORE_OPTIONS --disable-parallel"
+fi
+
 # run tests
 for TEST_PROJECT in $DOTNET_TEST_PROJECTS; do
     echo "---> Restoring test project ($TEST_PROJECT) dependencies..."
-    dotnet restore "$TEST_PROJECT" $RESTORE_OPTIONS --disable-parallel $VERBOSITY_OPTION
+    dotnet restore "$TEST_PROJECT" $RESTORE_OPTIONS $VERBOSITY_OPTION
     echo "---> Running test project: $TEST_PROJECT..."
     dotnet test "$TEST_PROJECT" -f "$DOTNET_FRAMEWORK" $VERBOSITY_OPTION
 done
 
 # publish application
-echo "---> WADDAFACK Restoring application dependencies..."
-dotnet restore "$DOTNET_STARTUP_PROJECT" $RESTORE_OPTIONS --disable-parallel $VERBOSITY_OPTION
+echo "---> Restoring application dependencies..."
+dotnet restore "$DOTNET_STARTUP_PROJECT" $RESTORE_OPTIONS $VERBOSITY_OPTION
 echo "---> Publishing application..."
 dotnet publish "$DOTNET_STARTUP_PROJECT" -f "$DOTNET_FRAMEWORK" -c "$DOTNET_CONFIGURATION" $VERBOSITY_OPTION \
        --self-contained false /p:PublishWithAspNetCoreTargetManifest=false -o "$DOTNET_APP_PATH"
